@@ -1,24 +1,64 @@
-
 import config from "../conf/index.js";
 
 //Implementation to extract city from query params
 function getCityFromURL(search) {
-  // TODO: MODULE_ADVENTURES
+  // TODO: MODULE_ADVENTURES 🚩 Module-2 Milestone-1 Activity-1
   // 1. Extract the city id from the URL's Query Param and return it
-
+  const params = new URLSearchParams(search);
+  // console.log(params.get('city'));
+  // we can get same thing by location.search method
+  return params.get("city");
 }
 
 //Implementation of fetch call with a paramterized input based on city
 async function fetchAdventures(city) {
-  // TODO: MODULE_ADVENTURES
+  // TODO: MODULE_ADVENTURES 🚩 Milestone-2
   // 1. Fetch adventures using the Backend API and return the data
-
+  let adventure_data;
+  let url = `http://13.235.210.105:8082/adventures?city=${city}`;
+  try {
+    let api_data = await fetch(url)
+      .then((response) => response.json()) // returns json data
+      .then((final_data) => {
+        // console.log(final_data)
+        let advArr = final_data.map((adventures) => adventures);
+        adventure_data = advArr;
+        // console.log(advArr);
+        return advArr;
+      });
+    // console.log(api_data)
+  } catch (err) {
+    return null;
+  }
+  return adventure_data;
 }
 
 //Implementation of DOM manipulation to add adventures for the given city from list of adventures
 function addAdventureToDOM(adventures) {
   // TODO: MODULE_ADVENTURES
   // 1. Populate the Adventure Cards and insert those details into the DOM
+  adventures.forEach((adv) => {
+    let adv_div = document.createElement("div");
+    adv_div.setAttribute("class", "col-6 col-md-3 mb-3")
+    adv_div.innerHTML = `
+      <a href="detail/?adventure=${adv.id}">
+        <div class="card activity-card">
+          <img src="${adv.image}" class="img-fluid" alt="${adv.category}">
+          <div class="card-body d-flex flex-column flex-lg-row justify-content-between align-items-center">
+            <h5 class="card-title">${adv.name}</h5>
+            <p class="card-text">${adv.costPerHead}</p>
+          </div>
+          <div class="card-body d-flex flex-column flex-lg-row justify-content-between align-items-center">
+            <h5 class="card-title">Duration</h5>
+            <p class="card-text">${adv.duration} Hours</p>
+          </div>
+        </div>
+      </a>
+  `;
+
+    let row_div = document.getElementById("data").append(adv_div);
+  })
+
 
 }
 
@@ -26,14 +66,12 @@ function addAdventureToDOM(adventures) {
 function filterByDuration(list, low, high) {
   // TODO: MODULE_FILTERS
   // 1. Filter adventures based on Duration and return filtered list
-
 }
 
 //Implementation of filtering by category which takes in a list of adventures, list of categories to be filtered upon and returns a filtered list of adventures.
 function filterByCategory(list, categoryList) {
   // TODO: MODULE_FILTERS
   // 1. Filter adventures based on their Category and return filtered list
-
 }
 
 // filters object looks like this filters = { duration: "", category: [] };
@@ -47,7 +85,6 @@ function filterFunction(list, filters) {
   // TODO: MODULE_FILTERS
   // 1. Handle the 3 cases detailed in the comments above and return the filtered list of adventures
   // 2. Depending on which filters are needed, invoke the filterByDuration() and/or filterByCategory() methods
-
 
   // Place holder for functionality to work in the Stubs
   return list;
@@ -66,7 +103,6 @@ function getFiltersFromLocalStorage() {
   // TODO: MODULE_FILTERS
   // 1. Get the filters from localStorage and return String read as an object
 
-
   // Place holder for functionality to work in the Stubs
   return null;
 }
@@ -78,7 +114,6 @@ function getFiltersFromLocalStorage() {
 function generateFilterPillsAndUpdateDOM(filters) {
   // TODO: MODULE_FILTERS
   // 1. Use the filters given as input, update the Duration Filter value and Generate Category Pills
-
 }
 export {
   getCityFromURL,
