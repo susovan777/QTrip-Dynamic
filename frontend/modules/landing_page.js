@@ -19,7 +19,7 @@ async function fetchCities() {
   // 1. Fetch cities using the Backend API and return the data
   let cityData;
   try {
-    let cityFromApi = await fetch("http://13.235.210.105:8082/cities/");
+    let cityFromApi = await fetch("http://13.235.89.53:8082/cities/");
     let jsonData = await cityFromApi
       .json()
       // .then((jsonData) => jsonData.json())

@@ -15,7 +15,7 @@ async function fetchAdventures(city) {
   // TODO: MODULE_ADVENTURES 🚩 Milestone-2
   // 1. Fetch adventures using the Backend API and return the data
   let adventure_data;
-  let url = `http://13.235.210.105:8082/adventures?city=${city}`;
+  let url = `http://13.235.89.53:8082/adventures?city=${city}`;
   try {
     let api_data = await fetch(url)
       .then((response) => response.json()) // returns json data
@@ -37,11 +37,13 @@ async function fetchAdventures(city) {
 function addAdventureToDOM(adventures) {
   // TODO: MODULE_ADVENTURES
   // 1. Populate the Adventure Cards and insert those details into the DOM
+  // console.log(adventures);
+  let row_div; 
   adventures.forEach((adv) => {
     let adv_div = document.createElement("div");
     adv_div.setAttribute("class", "col-6 col-md-3 mb-3")
     adv_div.innerHTML = `
-      <a href="detail/?adventure=${adv.id}">
+      <a href="detail/?adventure=${adv.id}" id="${adv.id}">
         <div class="card activity-card">
           <img src="${adv.image}" class="img-fluid" alt="${adv.category}">
           <div class="card-body d-flex flex-column flex-lg-row justify-content-between align-items-center">
@@ -56,10 +58,10 @@ function addAdventureToDOM(adventures) {
       </a>
   `;
 
-    let row_div = document.getElementById("data").append(adv_div);
-  })
-
-
+  row_div = document.getElementById("data").append(adv_div);
+  });
+  
+  return row_div;
 }
 
 //Implementation of filtering by duration which takes in a list of adventures, the lower bound and upper bound of duration and returns a filtered list of adventures.
