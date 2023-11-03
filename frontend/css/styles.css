@@ -172,6 +172,8 @@ footer {
 }
 
 .category-filter {
+  position: relative; /* for pill cross button */
+
   border: 1px solid orange;
   border-radius: 20px;
   padding: 5px 20px;

@@ -15,7 +15,7 @@ async function fetchAdventures(city) {
   // TODO: MODULE_ADVENTURES 🚩 Milestone-2
   // 1. Fetch adventures using the Backend API and return the data
   let adventure_data;
-  let url = `http://35.154.35.252:8082/adventures?city=${city}`;
+  let url = `http://13.233.225.2:8082/adventures?city=${city}`;
   try {
     let api_data = await fetch(url)
       .then((response) => response.json()) // returns json data
@@ -70,7 +70,10 @@ function addAdventureToDOM(adventures) {
 function filterByDuration(list, low, high) {
   // TODO: MODULE_FILTERS
   // 1. Filter adventures based on Duration and return filtered list
-
+  let filteredDurationList = list.filter((adv) => {
+    return (adv.duration >= low && adv.duration <= high);
+  })
+  return filteredDurationList;
 }
 
 // 🚩 Milestone-1 TODO - Implement filter by Category 🚩
@@ -78,9 +81,11 @@ function filterByDuration(list, low, high) {
 function filterByCategory(list, categoryList) {
   // TODO: MODULE_FILTERS
   // 1. Filter adventures based on their Category and return filtered list
+  // console.log(categoryList['category']);
   let filteredList = list.filter((element) => {
-    return categoryList.includes(element.category)
-  })
+    return categoryList['category'].includes(element.category);
+  });
+  // console.log(filteredList);
   return filteredList;
 }
 
@@ -97,23 +102,26 @@ function filterFunction(list, filters) {
   // 1. Handle the 3 cases detailed in the comments above and return the filtered list of adventures
   // 2. Depending on which filters are needed, invoke the filterByDuration() and/or filterByCategory() methods
 
-  // let filteredList;
+  let filteredList;
   // list -> goes to filters that are active -> filterdList
   // list fiters by two way: filterByDuration() and filterByCategory()
+  let selectedDuration = document.querySelector("#duration-select").value;
+  const durations = selectedDuration.split('-');
+  let low = durations[0];
+  let high = durations[1];
 
-  if(filters["duration"].length > 0 && filters["category"].length > 0) {
+  if (filters["duration"].length > 0 && filters["category"].length > 0) {
+    filteredList = filterByCategory(list, filters["category"]);
+    filteredList = filterByDuration(list, low, high);
+  } else if (filters["duration"].length > 0) {
+    filteredList = filterByDuration(list, low, high);
+  } else if (filters["category"].length > 0) {
     filteredList = filterByCategory(list, filters);
-    filteredList = filterByDuration(list, filters);
-  } 
-  else if (filters["duration"].length > 0) {
-    filteredList = filterByDuration(list, filters);
-  } 
-  else if (filters["category"].length > 0) {
-    filteredList = filterByCategory(list, filters);
-  } 
-  
+  }
+  else filteredList = list;
+
   // Place holder for functionality to work in the Stubs
-  return list;
+  return filteredList;
 }
 
 //Implementation of localStorage API to save filters to local storage. This should get called everytime an onChange() happens in either of filter dropdowns
@@ -149,8 +157,8 @@ function generateFilterPillsAndUpdateDOM(filters) {
 
     category_list.append(active_category);
   })
-
 }
+
 export {
   getCityFromURL,
   fetchAdventures,
