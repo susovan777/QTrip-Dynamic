@@ -15,7 +15,7 @@ async function fetchAdventures(city) {
   // TODO: MODULE_ADVENTURES 🚩 Milestone-2
   // 1. Fetch adventures using the Backend API and return the data
   let adventure_data;
-  let url = `http://43.205.212.86:8082/adventures?city=${city}`;
+  let url = `http://35.154.35.252:8082/adventures?city=${city}`;
   try {
     let api_data = await fetch(url)
       .then((response) => response.json()) // returns json data
@@ -140,7 +140,16 @@ function getFiltersFromLocalStorage() {
 function generateFilterPillsAndUpdateDOM(filters) {
   // TODO: MODULE_FILTERS
   // 1. Use the filters given as input, update the Duration Filter value and Generate Category Pills
-  
+  let category_list = document.getElementById("category-list");
+  filters['category'].forEach((item) => {
+    let active_category = document.createElement('p');
+    active_category.setAttribute('class', 'category-filter');
+    // active_category.textContent = item;
+    active_category.innerHTML = `${item} <button class="x-btn">&#215;</button>`;
+
+    category_list.append(active_category);
+  })
+
 }
 export {
   getCityFromURL,
