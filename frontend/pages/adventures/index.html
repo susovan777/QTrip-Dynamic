@@ -153,15 +153,16 @@
             let selectedDuration = event.target.value;
             // save the selected value
             filters['duration'] = selectedDuration;
-            console.log(filters);
+            // console.log(filters);
 
             // save the filtered list
             let filteredAdv = filterFunction(adventures, filters);
-            console.log(filteredAdv);
+            // console.log(filteredAdv);
             // finally display to the DOM
             addAdventureToDOM(filteredAdv);
 
             // 2. Invoke saveFiltersToLocalStorage here
+            saveFiltersToLocalStorage(filters);
         }
 
         //executed when clear button is clicked on duration filter dropdown
@@ -177,7 +178,7 @@
             addAdventureToDOM(filteredAdv);
 
             // 2. Invoke saveFiltersToLocalStorage here
-
+            saveFiltersToLocalStorage(filters);
         }
 
 
@@ -201,6 +202,7 @@
 
             // TODO: MODULE_FILTERS
             // 1. Invoke saveFiltersToLocalStorage here
+            saveFiltersToLocalStorage(filters);
         }
 
         //executed when clear button is clicked on category filter dropdown
@@ -214,6 +216,7 @@
 
             // TODO: MODULE_FILTERS
             // 1. Invoke saveFiltersToLocalStorage here
+            saveFiltersToLocalStorage(filters);
         }
 
         //helper function

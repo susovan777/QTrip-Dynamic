@@ -15,7 +15,7 @@ async function fetchAdventures(city) {
   // TODO: MODULE_ADVENTURES 🚩 Milestone-2
   // 1. Fetch adventures using the Backend API and return the data
   let adventure_data;
-  let url = `http://13.233.225.2:8082/adventures?city=${city}`;
+  let url = `http://13.233.92.220:8082/adventures?city=${city}`;
   try {
     let api_data = await fetch(url)
       .then((response) => response.json()) // returns json data
@@ -83,7 +83,7 @@ function filterByCategory(list, categoryList) {
   // 1. Filter adventures based on their Category and return filtered list
   // console.log(categoryList['category']);
   let filteredList = list.filter((element) => {
-    return categoryList['category'].includes(element.category);
+    return categoryList.includes(element.category);
   });
   // console.log(filteredList);
   return filteredList;
@@ -105,18 +105,23 @@ function filterFunction(list, filters) {
   let filteredList;
   // list -> goes to filters that are active -> filterdList
   // list fiters by two way: filterByDuration() and filterByCategory()
+  let category_list = filters['category'];
+
   let selectedDuration = document.querySelector("#duration-select").value;
   const durations = selectedDuration.split('-');
   let low = durations[0];
   let high = durations[1];
 
   if (filters["duration"].length > 0 && filters["category"].length > 0) {
-    filteredList = filterByCategory(list, filters["category"]);
-    filteredList = filterByDuration(list, low, high);
+    // filteredList = filterByCategory(list, filters["category"]);
+    // filteredList = filterByDuration(list, low, high);
+    filteredList = list.filter((item) => {
+      return (item.duration >= low && item.duration <= high) && category_list.includes(item.category);
+    })
   } else if (filters["duration"].length > 0) {
     filteredList = filterByDuration(list, low, high);
   } else if (filters["category"].length > 0) {
-    filteredList = filterByCategory(list, filters);
+    filteredList = filterByCategory(list, category_list);
   }
   else filteredList = list;
 
@@ -128,7 +133,7 @@ function filterFunction(list, filters) {
 function saveFiltersToLocalStorage(filters) {
   // TODO: MODULE_FILTERS
   // 1. Store the filters as a String to localStorage
-
+  localStorage.setItem('filters', JSON.stringify(filters));
   return true;
 }
 
@@ -137,8 +142,10 @@ function getFiltersFromLocalStorage() {
   // TODO: MODULE_FILTERS
   // 1. Get the filters from localStorage and return String read as an object
 
+  const savedData = JSON.parse(localStorage.getItem('filters'));
   // Place holder for functionality to work in the Stubs
-  return null;
+  // console.log(savedData);
+  return savedData;
 }
 
 //Implementation of DOM manipulation to add the following filters to DOM :
@@ -157,6 +164,7 @@ function generateFilterPillsAndUpdateDOM(filters) {
 
     category_list.append(active_category);
   })
+  getFiltersFromLocalStorage();
 }
 
 export {
