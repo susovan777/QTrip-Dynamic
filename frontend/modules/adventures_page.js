@@ -15,7 +15,7 @@ async function fetchAdventures(city) {
   // TODO: MODULE_ADVENTURES 🚩 Milestone-2
   // 1. Fetch adventures using the Backend API and return the data
   let adventure_data;
-  let url = `http://13.233.92.220:8082/adventures?city=${city}`;
+  let url = `http://65.0.203.32:8082/adventures?city=${city}`;
   try {
     let api_data = await fetch(url)
       .then((response) => response.json()) // returns json data
@@ -98,31 +98,34 @@ function filterByCategory(list, categoryList) {
 
 // 🚩 Milestone-1 TODO - Implement filter by Category 🚩
 function filterFunction(list, filters) {
-  // TODO: MODULE_FILTERS
+  // TODO: MODULE_FILTERS 🚩 Module-3 Milestone-1
   // 1. Handle the 3 cases detailed in the comments above and return the filtered list of adventures
   // 2. Depending on which filters are needed, invoke the filterByDuration() and/or filterByCategory() methods
-
   let filteredList;
-  // list -> goes to filters that are active -> filterdList
-  // list fiters by two way: filterByDuration() and filterByCategory()
-  let category_list = filters['category'];
 
-  let selectedDuration = document.querySelector("#duration-select").value;
-  const durations = selectedDuration.split('-');
-  let low = durations[0];
-  let high = durations[1];
+  // const durations = filters['duration'].split('-');
+  // let low = durations[0];
+  // let high = durations[1];
 
+  // when duration & category both selected
   if (filters["duration"].length > 0 && filters["category"].length > 0) {
-    // filteredList = filterByCategory(list, filters["category"]);
-    // filteredList = filterByDuration(list, low, high);
-    filteredList = list.filter((item) => {
-      return (item.duration >= low && item.duration <= high) && category_list.includes(item.category);
-    })
-  } else if (filters["duration"].length > 0) {
-    filteredList = filterByDuration(list, low, high);
-  } else if (filters["category"].length > 0) {
-    filteredList = filterByCategory(list, category_list);
+    const durations = filters['duration'].split('-');
+    filteredList = filterByDuration(list, durations[0], durations[1]);
+    filteredList = filterByCategory(filteredList, filters['category']);
+    // filteredList = list.filter((item) => {
+    //   return (item.duration >= low && item.duration <= high) && category_list.includes(item.category);
+    // })
   }
+  // when only duration is selected
+  else if (filters["duration"].length > 0) {
+    const durations = filters['duration'].split('-');
+    filteredList = filterByDuration(list, durations[0], durations[1]);
+  }
+  // when only category is selected
+  else if (filters["category"].length > 0) {
+    filteredList = filterByCategory(list, filters['category']);
+  }
+  // when nothing selected
   else filteredList = list;
 
   // Place holder for functionality to work in the Stubs
