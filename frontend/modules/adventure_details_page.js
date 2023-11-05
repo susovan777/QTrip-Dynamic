@@ -15,7 +15,7 @@ async function fetchAdventureDetails(adventureId) {
   // TODO: MODULE_ADVENTURE_DETAILS 🚩 Module-4 Milestone-1
   // 1. Fetch the details of the adventure by making an API call
   let advDetails_data;
-  let url = `http://3.110.134.172:8082/adventures/detail/?adventure=${adventureId}`;
+  let url = `http://65.0.80.193:8082/adventures/detail/?adventure=${adventureId}`;
   try {
     let apiDetails_data = await fetch(url)
       .then((response) => response.json())
@@ -28,7 +28,7 @@ async function fetchAdventureDetails(adventureId) {
   catch (err) {
     return null;
   }
-  console.log(advDetails_data);
+  // console.log(advDetails_data);
   // Place holder for functionality to work in the Stubs
   return advDetails_data;
 }
@@ -37,7 +37,27 @@ async function fetchAdventureDetails(adventureId) {
 function addAdventureDetailsToDOM(adventure) {
   // TODO: MODULE_ADVENTURE_DETAILS 🚩 Module-4 Milestone-2
   // 1. Add the details of the adventure to the HTML DOM
+  let adv_name = document.querySelector('#adventure-name');
+  let adv_subTitle = document.querySelector('#adventure-subtitle');
+  let adv_photo = document.querySelector('#photo-gallery');
+  let adv_content = document.querySelector('#adventure-content');
 
+  // heading and subtitle
+  adv_name.textContent = `${adventure.name}`;
+  adv_subTitle.textContent = `${adventure.subtitle}`;
+
+  // images
+  let imgDiv = document.createElement('div');
+  adventure['images'].forEach((img) => {
+    let imgElement = document.createElement('img');
+    imgElement.setAttribute('src', img);
+    imgElement.setAttribute('class', 'activity-card-image');
+    imgDiv.append(imgElement);
+  })
+  adv_photo.append(imgDiv);
+
+  // contents
+  adv_content.textContent = `${adventure.content}`;
 }
 
 //Implementation of bootstrap gallery component
