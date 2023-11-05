@@ -62,8 +62,47 @@ function addAdventureDetailsToDOM(adventure) {
 
 //Implementation of bootstrap gallery component
 function addBootstrapPhotoGallery(images) {
-  // TODO: MODULE_ADVENTURE_DETAILS
+  // TODO: MODULE_ADVENTURE_DETAILS 🚩 Module-4 Milestone-3
   // 1. Add the bootstrap carousel to show the Adventure images
+  // console.log(images);
+  let adv_imgGallery = document.getElementById('photo-gallery');
+  adv_imgGallery.innerHTML = `
+  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <!-- 🖼️ Adding carousel items here 🖼️ -->
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+  `;
+
+  let carousel_inner = document.querySelector('.carousel-inner');
+
+  images.forEach((img) => {
+    let carousel_itemDiv = document.createElement('div');
+    carousel_itemDiv.setAttribute('class', 'carousel-item');
+
+    let carousel_imgEl = document.createElement('img');
+    carousel_imgEl.setAttribute('src', img);
+    carousel_imgEl.setAttribute('class', "d-block w-100");
+
+    carousel_itemDiv.append(carousel_imgEl);
+
+    carousel_inner.append(carousel_itemDiv);
+  })
+  // setting the 1st child img elemnt to active
+  document.querySelector(".carousel-inner > div:nth-child(1)").setAttribute('class', 'carousel-item active');
 
 }
 
