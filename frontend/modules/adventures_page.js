@@ -15,7 +15,7 @@ async function fetchAdventures(city) {
   // TODO: MODULE_ADVENTURES 🚩 Milestone-2
   // 1. Fetch adventures using the Backend API and return the data
   let adventure_data;
-  let url = `http://65.2.136.174:8082/adventures?city=${city}`;
+  let url = `http://13.200.11.154:8082/adventures?city=${city}`;
   try {
     let api_data = await fetch(url)
       .then((response) => response.json()) // returns json data
@@ -38,7 +38,7 @@ async function fetchAdventures(city) {
 function addAdventureToDOM(adventures) {
   // TODO: MODULE_ADVENTURES
   // 1. Populate the Adventure Cards and insert those details into the DOM
-  console.log(adventures);
+  // console.log(adventures);
   let row_div;
   adventures.forEach((adv) => {
     let adv_div = document.createElement("div");
@@ -162,8 +162,8 @@ function generateFilterPillsAndUpdateDOM(filters) {
   filters['category'].forEach((item) => {
     let active_category = document.createElement('p');
     active_category.setAttribute('class', 'category-filter');
-    // active_category.textContent = item;
-    active_category.innerHTML = `${item} <button class="x-btn">&#215;</button>`;
+
+    active_category.innerHTML = `${item} <button class="x-btn" id=${item} onclick="removePill(event)">&#215;</button>`;
 
     category_list.append(active_category);
   })

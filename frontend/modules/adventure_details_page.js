@@ -15,7 +15,7 @@ async function fetchAdventureDetails(adventureId) {
   // TODO: MODULE_ADVENTURE_DETAILS 🚩 Module-4 Milestone-1
   // 1. Fetch the details of the adventure by making an API call
   let advDetails_data;
-  let url = `http://65.2.136.174:8082/adventures/detail/?adventure=${adventureId}`;
+  let url = `http://13.200.11.154:8082/adventures/detail/?adventure=${adventureId}`;
   try {
     let apiDetails_data = await fetch(url)
       .then((response) => response.json())
