@@ -130,9 +130,14 @@ function conditionalRenderingOfReservationPanel(adventure) {
 
 //Implementation of reservation cost calculation based on persons
 function calculateReservationCostAndUpdateDOM(adventure, persons) {
-  // TODO: MODULE_RESERVATIONS
+  // TODO: MODULE_RESERVATIONS 🚩 Module-5 Milestone-1
   // 1. Calculate the cost based on number of persons and update the reservation-cost field
 
+  // let person_cost = adventure.costPerHead;
+  let reservationCost_el = document.getElementById('reservation-cost');
+
+  let totalReservation_cost = adventure.costPerHead * persons;
+  reservationCost_el.textContent = totalReservation_cost;
 }
 
 //Implementation of reservation form submission
