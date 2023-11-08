@@ -15,7 +15,7 @@ async function fetchAdventureDetails(adventureId) {
   // TODO: MODULE_ADVENTURE_DETAILS 🚩 Module-4 Milestone-1
   // 1. Fetch the details of the adventure by making an API call
   let advDetails_data;
-  let url = `http://13.200.11.154:8082/adventures/detail/?adventure=${adventureId}`;
+  let url = `http://3.110.74.138:8082/adventures/detail/?adventure=${adventureId}`;
   try {
     let apiDetails_data = await fetch(url)
       .then((response) => response.json())
@@ -108,8 +108,23 @@ function addBootstrapPhotoGallery(images) {
 
 //Implementation of conditional rendering of DOM based on availability
 function conditionalRenderingOfReservationPanel(adventure) {
-  // TODO: MODULE_RESERVATIONS
+  // TODO: MODULE_RESERVATIONS 🚩 Module-5 Milestone-1
   // 1. If the adventure is already reserved, display the sold-out message.
+  console.log(adventure);
+
+  let soldOut_panel = document.getElementById('reservation-panel-sold-out');
+  let available_panel = document.getElementById('reservation-panel-available');
+  let perhead_cost = document.getElementById('reservation-person-cost');
+
+  if(adventure.available) {
+    soldOut_panel.style.display = 'none';
+    available_panel.style.display = 'block';
+    perhead_cost.textContent = `${adventure.costPerHead}`
+  } 
+  else {
+    soldOut_panel.style.display = 'block';
+    available_panel.style.display = 'none';
+  }
 
 }
 
