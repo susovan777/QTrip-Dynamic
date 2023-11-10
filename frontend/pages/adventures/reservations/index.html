@@ -80,6 +80,7 @@
         
         (async function () {
             const reservations = await fetchReservations();
+            // console.log(reservations);
             addReservationToTable(reservations);
         })();
 

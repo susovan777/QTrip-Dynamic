@@ -162,7 +162,7 @@ function captureFormSubmit(adventure) {
     // posting data to server
     try {
       const post_data = await fetch(
-        "http://13.200.4.91:8082/reservations/new",
+        "http://3.110.205.249:8082/reservations/new",
         {
           method: "POST",
           headers: {
