@@ -1,11 +1,14 @@
 import config from "../conf/index.js";
 
+const liveURL = config.backendEndpoint.slice(0, -5);
+// console.log(config.backendEndpoint, liveURL);
+
 //Implementation of fetch call to fetch all reservations
 async function fetchReservations() {
   // TODO: MODULE_RESERVATIONS 🚩 Module-5 Milestone-3
   // 1. Fetch Reservations by invoking the REST API and return them
   let reservation_data;
-  let url = "http://65.0.60.140:8082/reservations/";
+  let url = `${config.backendEndpoint}/reservations/`;
   try {
     let apiReservation_data = await fetch(url)
       .then((response) => response.json())
@@ -55,7 +58,7 @@ function addReservationToTable(reservations) {
         <td>${reserveItem.price}</td>
         <td>${date_time}</td>
   
-        <td><button id=${reserveItem.id} class="reservation-visit-button"><a href="http://65.0.60.140:8081/frontend/pages/adventures/detail/?adventure=${reserveItem.adventure}">Visit Adventure</a></button></td>
+        <td><button id=${reserveItem.id} class="reservation-visit-button"><a href="${liveURL}:8081/frontend/pages/adventures/detail/?adventure=${reserveItem.adventure}">Visit Adventure</a></button></td>
       `;
       reservation_tableData.append(tr_el);
     });
