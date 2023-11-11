@@ -15,7 +15,7 @@ async function fetchAdventures(city) {
   // TODO: MODULE_ADVENTURES 🚩 Milestone-2
   // 1. Fetch adventures using the Backend API and return the data
   let adventure_data;
-  let url = `http://3.110.205.249:8082/adventures?city=${city}`;
+  let url = `http://65.0.60.140:8082/adventures?city=${city}`;
   try {
     let api_data = await fetch(url)
       .then((response) => response.json()) // returns json data

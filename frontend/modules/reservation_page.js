@@ -5,7 +5,7 @@ async function fetchReservations() {
   // TODO: MODULE_RESERVATIONS 🚩 Module-5 Milestone-3
   // 1. Fetch Reservations by invoking the REST API and return them
   let reservation_data;
-  let url = "http://3.110.205.249:8082/reservations/";
+  let url = "http://65.0.60.140:8082/reservations/";
   try {
     let apiReservation_data = await fetch(url)
       .then((response) => response.json())
@@ -36,7 +36,37 @@ function addReservationToTable(reservations) {
     1. The date of adventure booking should appear in the format D/MM/YYYY (en-IN format) Example:  4/11/2020 denotes 4th November, 2020
     2. The booking time should appear in a format like 4 November 2020, 9:32:31 pm
   */
+    // console.log(reservations); 
   
+    const reservation_tableData = document.getElementById("reservation-table");
+    reservations.forEach((reserveItem) => {
+      let tr_el = document.createElement("tr");
+      
+      const reserve_date = new Date(`${reserveItem.date}`).toLocaleDateString('en-IN');
+      const reserve_dateAndTime = new Date(`${reserveItem.time}`).toLocaleString('en-IN', {day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric'});
+      const date_time = reserve_dateAndTime.split(' at').join(',');
+
+      tr_el.innerHTML = `
+        <td>${reserveItem.id}</td>
+        <td>${reserveItem.name}</td>
+        <td>${reserveItem.adventureName}</td>
+        <td>${reserveItem.person}</td>
+        <td>${reserve_date}</td>
+        <td>${reserveItem.price}</td>
+        <td>${date_time}</td>
+  
+        <td><button id=${reserveItem.id} class="reservation-visit-button"><a href="http://65.0.60.140:8081/frontend/pages/adventures/detail/?adventure=${reserveItem.adventure}">Visit Adventure</a></button></td>
+      `;
+      reservation_tableData.append(tr_el);
+    });
+
+    if (reservations.length > 0) {
+      document.getElementById("no-reservation-banner").style.display = "none";
+      document.getElementById("reservation-table-parent").style.display = "block";
+    } else {
+      document.getElementById("reservation-table-parent").style.display = "none";
+      document.getElementById("no-reservation-banner").style.display = "block";
+    }
 }
 
 export { fetchReservations, addReservationToTable };

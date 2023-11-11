@@ -260,6 +260,7 @@ input[type="number"] {
   text-align: center;
   padding: 10px;
   white-space: nowrap;
+  border: none;
   border-radius: 20px;
   cursor: pointer;
 }
