@@ -1,6 +1,6 @@
 import config from "../conf/index.js";
 
-const liveURL = config.backendEndpoint.slice(0, -5);
+// const liveURL = config.backendEndpoint.slice(0, -5);
 // console.log(config.backendEndpoint, liveURL);
 
 //Implementation of fetch call to fetch all reservations
@@ -58,7 +58,7 @@ function addReservationToTable(reservations) {
         <td>${reserveItem.price}</td>
         <td>${date_time}</td>
   
-        <td><button id=${reserveItem.id} class="reservation-visit-button"><a href="${liveURL}:8081/frontend/pages/adventures/detail/?adventure=${reserveItem.adventure}">Visit Adventure</a></button></td>
+        <td><button id=${reserveItem.id} class="reservation-visit-button"><a href="../../adventures/detail/?adventure=${reserveItem.adventure}">Visit Adventure</a></button></td>
       `;
       reservation_tableData.append(tr_el);
     });
