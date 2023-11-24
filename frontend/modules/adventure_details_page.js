@@ -145,11 +145,17 @@ function captureFormSubmit(adventure) {
   // 2. If the reservation is successful, show an alert with "Success!" and refresh the page. If the reservation fails, just show an alert with "Failed!".
   let reservation_form = document.getElementById("myForm");
   reservation_form.addEventListener("submit", async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
-    let name_value = document.getElementsByName("name")[0].value;
-    let date_value = document.getElementsByName("date")[0].value;
-    let person_value = document.getElementsByName("person")[0].value;
+    // let name_value = document.getElementsByName("name")[0].value;
+    // let date_value = document.getElementsByName("date")[0].value;
+    // let person_value = document.getElementsByName("person")[0].value;
+
+    let name_value = reservation_form.elements["name"].value;
+    let date_value = new Date(reservation_form.elements["date"].value);
+    let person_value = reservation_form.elements["person"].value;
+
+
 
     const form_data = {
       name: name_value,
@@ -172,30 +178,28 @@ function captureFormSubmit(adventure) {
         }
       );
 
-      // if data is uploaded successfully then alert and reload the page 
+      // if data is uploaded successfully then alert and reload the page
       if (post_data.ok) {
         alert("Success!");
         location.reload();
+        adventure.reserved = true;
       } else alert("Failed!");
-    } 
-    catch (err) {
+    } catch (err) {
       return err;
     }
   });
-
 }
 
 //Implementation of success banner after reservation
 function showBannerIfAlreadyReserved(adventure) {
   // TODO: MODULE_RESERVATIONS 🚩 Module-5 Milestone-2
   // 1. If user has already reserved this adventure, show the reserved-banner, else don't
-  const reserve_banner = document.getElementById('reserved-banner');
-
-  if(adventure.reserved) {
-    reserve_banner.style.display = 'block';
-  } 
-  else {
-    reserve_banner.style.display = 'none';
+  const reserve_banner = document.getElementById("reserved-banner");
+  console.log(adventure.reserved);
+  if (adventure.reserved) {
+    reserve_banner.style.display = "block";
+  } else {
+    reserve_banner.style.display = "none";
   }
 }
 
