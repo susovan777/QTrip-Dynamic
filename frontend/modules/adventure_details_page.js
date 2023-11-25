@@ -183,6 +183,7 @@ function captureFormSubmit(adventure) {
         alert("Success!");
         location.reload();
         adventure.reserved = true;
+        adventure.available = false;
       } else alert("Failed!");
     } catch (err) {
       return err;
